@@ -1,0 +1,1351 @@
+//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//
+// Purpose: New Scoreboard using GoldSrc HUD Drawing API
+//
+//=============================================================================
+
+#include "NuklearScoreboard.h"
+#include "vgui_TeamFortressViewport.h"
+#include "keydefs.h"
+#include "../game_shared/voice_status.h"
+
+// 外部变量和函数声明
+extern int g_iTeamNumber;
+int EV_TFC_IsAllyTeam(int iTeam1, int iTeam2);
+
+// 队伍颜色
+TeamColor_t g_TeamColors[MAX_TEAM_COLORS] = {
+	{ 255, 0, 0 },      // 红色
+	{ 0, 0, 255 },      // 蓝色
+	{ 0, 255, 0 },      // 绿色
+	{ 255, 255, 0 },    // 黄色
+	{ 255, 128, 0 },    // 橙色
+	{ 128, 0, 255 },    // 紫色
+	{ 0, 255, 255 },    // 青色
+	{ 255, 0, 255 },    // 粉色
+};
+
+// 全局实例
+CNuklearScoreboard g_NuklearScoreboard;
+
+//=============================================================================
+// 全局入口函数 - 由 HUD_DrawTransparentTriangles 调用
+//=============================================================================
+void DrawNuklearScoreboard()
+{
+	g_NuklearScoreboard.Draw();
+}
+
+//=============================================================================
+// 全局入口函数 - 由 HUD_VidInit 调用
+//=============================================================================
+void InitNuklearScoreboard()
+{
+	g_NuklearScoreboard.VidInit();
+}
+
+//=============================================================================
+// 构造函数和析构函数
+//=============================================================================
+
+CNuklearScoreboard::CNuklearScoreboard()
+{
+	m_bVisible = false;
+	m_bNeedsUpdate = false;
+	m_bConfigLoaded = false;
+	m_iX = 0;
+	m_iY = 0;
+	m_iWidth = 600;
+	m_iHeight = 400;
+	m_iContentY = 0;
+	m_iScrollOffset = 0;
+	m_iMaxVisibleRows = 0;
+	m_iHighlightRow = -1;
+	m_iHighlightCol = -1;
+	m_iNumTeams = 0;
+	m_iNumSorted = 0;
+	m_iLastKilledBy = 0;
+	m_fLastKillTime = 0;
+	m_bSquelchMode = false;
+
+	memset(m_szServerName, 0, sizeof(m_szServerName));
+	m_iCfgWidth = 0;
+	m_iCfgHeight = 0;
+	m_iCfgX = 0;
+	m_iCfgY = 0;
+	memset(m_szCfgTitle, 0, sizeof(m_szCfgTitle));
+	memset(m_szCfgSubtitle, 0, sizeof(m_szCfgSubtitle));
+	memset(m_szCfgColName, 0, sizeof(m_szCfgColName));
+	memset(m_szCfgColTeam, 0, sizeof(m_szCfgColTeam));
+	memset(m_szCfgColClass, 0, sizeof(m_szCfgColClass));
+	memset(m_szCfgColScore, 0, sizeof(m_szCfgColScore));
+	memset(m_szCfgColDeaths, 0, sizeof(m_szCfgColDeaths));
+	memset(m_szCfgColPing, 0, sizeof(m_szCfgColPing));
+	memset(m_szCfgColVoice, 0, sizeof(m_szCfgColVoice));
+	memset(m_szCfgSpectators, 0, sizeof(m_szCfgSpectators));
+	memset(m_szCfgPlayerCountFormat, 0, sizeof(m_szCfgPlayerCountFormat));
+	memset(m_iCfgBgColor, 0, sizeof(m_iCfgBgColor));
+	memset(m_iCfgBorderColor, 0, sizeof(m_iCfgBorderColor));
+	memset(m_iCfgHeaderBgColor, 0, sizeof(m_iCfgHeaderBgColor));
+	memset(m_iCfgHeaderTextColor, 0, sizeof(m_iCfgHeaderTextColor));
+	memset(m_iCfgRowEvenColor, 0, sizeof(m_iCfgRowEvenColor));
+	memset(m_iCfgRowOddColor, 0, sizeof(m_iCfgRowOddColor));
+	memset(m_iCfgSelfHighlightColor, 0, sizeof(m_iCfgSelfHighlightColor));
+	m_iCfgColNameWidth = 0;
+	m_iCfgColTeamWidth = 0;
+	m_iCfgColClassWidth = 0;
+	m_iCfgColScoreWidth = 0;
+	m_iCfgColDeathsWidth = 0;
+	m_iCfgColPingWidth = 0;
+	m_iCfgColVoiceWidth = 0;
+	m_iCfgRowHeight = 0;
+	m_iCfgTeamRowHeight = 0;
+	m_iCfgHeaderHeight = 0;
+	m_iCfgBorderWidth = 0;
+	m_iCfgPadding = 0;
+	memset(m_TeamInfo, 0, sizeof(m_TeamInfo));
+	memset(m_PlayerInfo, 0, sizeof(m_PlayerInfo));
+	memset(m_SortedPlayers, 0, sizeof(m_SortedPlayers));
+	memset(m_iMutedPlayers, 0, sizeof(m_iMutedPlayers));
+
+	SetDefaultConfig();
+}
+
+CNuklearScoreboard::~CNuklearScoreboard()
+{
+	Shutdown();
+}
+
+//=============================================================================
+// 初始化和销毁
+//=============================================================================
+
+void CNuklearScoreboard::Init()
+{
+	// 初始化字体信息
+	SCREENINFO scrinfo;
+	scrinfo.iSize = sizeof(SCREENINFO);
+	GetScreenInfo(&scrinfo);
+	m_iCharWidth = scrinfo.charWidths['A'] ? scrinfo.charWidths['A'] : 8;
+	m_iCharHeight = scrinfo.iCharHeight ? scrinfo.iCharHeight : 14;
+	m_iTitleCharHeight = m_iCharHeight + 4;
+
+	// 初始化队伍颜色
+	g_TeamColors[0].r = 255; g_TeamColors[0].g = 60; g_TeamColors[0].b = 60;
+	g_TeamColors[1].r = 60; g_TeamColors[1].g = 60; g_TeamColors[1].b = 255;
+	g_TeamColors[2].r = 60; g_TeamColors[2].g = 180; g_TeamColors[2].b = 60;
+	g_TeamColors[3].r = 255; g_TeamColors[3].g = 220; g_TeamColors[3].b = 60;
+	g_TeamColors[4].r = 255; g_TeamColors[4].g = 140; g_TeamColors[4].b = 40;
+	g_TeamColors[5].r = 180; g_TeamColors[5].g = 60; g_TeamColors[5].b = 255;
+	g_TeamColors[6].r = 60; g_TeamColors[6].g = 220; g_TeamColors[6].b = 220;
+	g_TeamColors[7].r = 255; g_TeamColors[7].g = 100; g_TeamColors[7].b = 180;
+
+	// 加载配置
+	LoadConfig();
+
+	CalculateLayout();
+}
+
+void CNuklearScoreboard::VidInit()
+{
+	LoadConfig();
+	CalculateLayout();
+}
+
+void CNuklearScoreboard::Shutdown()
+{
+}
+
+//=============================================================================
+// 配置加载
+//=============================================================================
+
+void CNuklearScoreboard::SetDefaultConfig()
+{
+	// 默认尺寸
+	m_iCfgWidth = 600;
+	m_iCfgHeight = 400;
+	m_iCfgX = -1;
+	m_iCfgY = -1;
+
+	// 默认标题
+	strncpy(m_szCfgTitle, "SCOREBOARD", sizeof(m_szCfgTitle) - 1);
+	strncpy(m_szCfgSubtitle, "Press TAB to close", sizeof(m_szCfgSubtitle) - 1);
+
+	// 默认列标题
+	strncpy(m_szCfgColName, "Name", sizeof(m_szCfgColName) - 1);
+	strncpy(m_szCfgColTeam, "Team", sizeof(m_szCfgColTeam) - 1);
+	strncpy(m_szCfgColClass, "Class", sizeof(m_szCfgColClass) - 1);
+	strncpy(m_szCfgColScore, "Score", sizeof(m_szCfgColScore) - 1);
+	strncpy(m_szCfgColDeaths, "Deaths", sizeof(m_szCfgColDeaths) - 1);
+	strncpy(m_szCfgColPing, "Ping", sizeof(m_szCfgColPing) - 1);
+	strncpy(m_szCfgColVoice, "Voice", sizeof(m_szCfgColVoice) - 1);
+
+	// 默认观察者标题
+	strncpy(m_szCfgSpectators, "Spectators", sizeof(m_szCfgSpectators) - 1);
+
+	// 默认玩家数量格式
+	strncpy(m_szCfgPlayerCountFormat, "%d players", sizeof(m_szCfgPlayerCountFormat) - 1);
+
+	// 默认颜色
+	m_iCfgBgColor[0] = 0; m_iCfgBgColor[1] = 0; m_iCfgBgColor[2] = 0; m_iCfgBgColor[3] = 220;
+	m_iCfgBorderColor[0] = 60; m_iCfgBorderColor[1] = 60; m_iCfgBorderColor[2] = 60; m_iCfgBorderColor[3] = 255;
+	m_iCfgHeaderBgColor[0] = 30; m_iCfgHeaderBgColor[1] = 30; m_iCfgHeaderBgColor[2] = 30; m_iCfgHeaderBgColor[3] = 200;
+	m_iCfgHeaderTextColor[0] = 255; m_iCfgHeaderTextColor[1] = 170; m_iCfgHeaderTextColor[2] = 0; m_iCfgHeaderTextColor[3] = 255;
+	m_iCfgRowEvenColor[0] = 25; m_iCfgRowEvenColor[1] = 25; m_iCfgRowEvenColor[2] = 25; m_iCfgRowEvenColor[3] = 180;
+	m_iCfgRowOddColor[0] = 20; m_iCfgRowOddColor[1] = 20; m_iCfgRowOddColor[2] = 20; m_iCfgRowOddColor[3] = 180;
+	m_iCfgSelfHighlightColor[0] = 100; m_iCfgSelfHighlightColor[1] = 100; m_iCfgSelfHighlightColor[2] = 255; m_iCfgSelfHighlightColor[3] = 60;
+
+	// 默认列宽
+	m_iCfgColNameWidth = 160;
+	m_iCfgColTeamWidth = 70;
+	m_iCfgColClassWidth = 80;
+	m_iCfgColScoreWidth = 50;
+	m_iCfgColDeathsWidth = 50;
+	m_iCfgColPingWidth = 50;
+	m_iCfgColVoiceWidth = 40;
+
+	// 默认行高
+	m_iCfgRowHeight = 20;
+	m_iCfgTeamRowHeight = 24;
+	m_iCfgHeaderHeight = 36;
+
+	// 默认边框和间距
+	m_iCfgBorderWidth = 2;
+	m_iCfgPadding = 6;
+}
+
+static void ParseColor(const char* str, int color[4])
+{
+	int r, g, b, a;
+	if (sscanf(str, "%d %d %d %d", &r, &g, &b, &a) == 4)
+	{
+		color[0] = r;
+		color[1] = g;
+		color[2] = b;
+		color[3] = a;
+	}
+}
+
+void CNuklearScoreboard::LoadConfig()
+{
+	char configFile[] = "Scoreboard.txt";
+	char* pfile = (char*)gEngfuncs.COM_LoadFile(configFile, 5, NULL);
+
+	if (!pfile)
+	{
+		gEngfuncs.Con_DPrintf("[Scoreboard] Unable to load %s, using default config\n", configFile);
+		SetDefaultConfig();
+		m_bConfigLoaded = true;
+		return;
+	}
+
+	SetDefaultConfig();
+
+	char token[1024];
+	char value[1024];
+	char* p = pfile;
+
+	while (p && *p)
+	{
+		// 跳过空白和注释
+		while (*p && (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r'))
+			p++;
+
+		if (*p == '/' && *(p + 1) == '/')
+		{
+			while (*p && *p != '\n')
+				p++;
+			continue;
+		}
+
+		if (!*p)
+			break;
+
+		// 读取键名
+		int i = 0;
+		while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && i < (int)sizeof(token) - 1)
+		{
+			token[i++] = *p++;
+		}
+		token[i] = '\0';
+
+		// 跳过空白
+		while (*p && (*p == ' ' || *p == '\t'))
+			p++;
+
+		// 读取值（带引号）
+		if (*p == '"')
+		{
+			p++;
+			i = 0;
+			while (*p && *p != '"' && i < (int)sizeof(value) - 1)
+			{
+				value[i++] = *p++;
+			}
+			value[i] = '\0';
+			if (*p == '"')
+				p++;
+		}
+		else
+		{
+			// 读取不带引号的值
+			i = 0;
+			while (*p && *p != ' ' && *p != '\t' && *p != '\n' && *p != '\r' && i < (int)sizeof(value) - 1)
+			{
+				value[i++] = *p++;
+			}
+			value[i] = '\0';
+		}
+
+		// 解析配置项
+		if (strcmp(token, "width") == 0)
+			m_iCfgWidth = atoi(value);
+		else if (strcmp(token, "height") == 0)
+			m_iCfgHeight = atoi(value);
+		else if (strcmp(token, "x") == 0)
+			m_iCfgX = atoi(value);
+		else if (strcmp(token, "y") == 0)
+			m_iCfgY = atoi(value);
+		else if (strcmp(token, "title") == 0)
+			strncpy(m_szCfgTitle, value, sizeof(m_szCfgTitle) - 1);
+		else if (strcmp(token, "subtitle") == 0)
+			strncpy(m_szCfgSubtitle, value, sizeof(m_szCfgSubtitle) - 1);
+		else if (strcmp(token, "col_name") == 0)
+			strncpy(m_szCfgColName, value, sizeof(m_szCfgColName) - 1);
+		else if (strcmp(token, "col_team") == 0)
+			strncpy(m_szCfgColTeam, value, sizeof(m_szCfgColTeam) - 1);
+		else if (strcmp(token, "col_class") == 0)
+			strncpy(m_szCfgColClass, value, sizeof(m_szCfgColClass) - 1);
+		else if (strcmp(token, "col_score") == 0)
+			strncpy(m_szCfgColScore, value, sizeof(m_szCfgColScore) - 1);
+		else if (strcmp(token, "col_deaths") == 0)
+			strncpy(m_szCfgColDeaths, value, sizeof(m_szCfgColDeaths) - 1);
+		else if (strcmp(token, "col_ping") == 0)
+			strncpy(m_szCfgColPing, value, sizeof(m_szCfgColPing) - 1);
+		else if (strcmp(token, "col_voice") == 0)
+			strncpy(m_szCfgColVoice, value, sizeof(m_szCfgColVoice) - 1);
+		else if (strcmp(token, "spectators") == 0)
+			strncpy(m_szCfgSpectators, value, sizeof(m_szCfgSpectators) - 1);
+		else if (strcmp(token, "player_count") == 0)
+			strncpy(m_szCfgPlayerCountFormat, value, sizeof(m_szCfgPlayerCountFormat) - 1);
+		else if (strcmp(token, "bg_color") == 0)
+			ParseColor(value, m_iCfgBgColor);
+		else if (strcmp(token, "border_color") == 0)
+			ParseColor(value, m_iCfgBorderColor);
+		else if (strcmp(token, "header_bg_color") == 0)
+			ParseColor(value, m_iCfgHeaderBgColor);
+		else if (strcmp(token, "header_text_color") == 0)
+			ParseColor(value, m_iCfgHeaderTextColor);
+		else if (strcmp(token, "row_even_color") == 0)
+			ParseColor(value, m_iCfgRowEvenColor);
+		else if (strcmp(token, "row_odd_color") == 0)
+			ParseColor(value, m_iCfgRowOddColor);
+		else if (strcmp(token, "self_highlight_color") == 0)
+			ParseColor(value, m_iCfgSelfHighlightColor);
+		else if (strcmp(token, "col_name_width") == 0)
+			m_iCfgColNameWidth = atoi(value);
+		else if (strcmp(token, "col_team_width") == 0)
+			m_iCfgColTeamWidth = atoi(value);
+		else if (strcmp(token, "col_class_width") == 0)
+			m_iCfgColClassWidth = atoi(value);
+		else if (strcmp(token, "col_score_width") == 0)
+			m_iCfgColScoreWidth = atoi(value);
+		else if (strcmp(token, "col_deaths_width") == 0)
+			m_iCfgColDeathsWidth = atoi(value);
+		else if (strcmp(token, "col_ping_width") == 0)
+			m_iCfgColPingWidth = atoi(value);
+		else if (strcmp(token, "col_voice_width") == 0)
+			m_iCfgColVoiceWidth = atoi(value);
+		else if (strcmp(token, "row_height") == 0)
+			m_iCfgRowHeight = atoi(value);
+		else if (strcmp(token, "team_row_height") == 0)
+			m_iCfgTeamRowHeight = atoi(value);
+		else if (strcmp(token, "header_height") == 0)
+			m_iCfgHeaderHeight = atoi(value);
+		else if (strcmp(token, "border_width") == 0)
+			m_iCfgBorderWidth = atoi(value);
+		else if (strcmp(token, "padding") == 0)
+			m_iCfgPadding = atoi(value);
+	}
+
+	gEngfuncs.COM_FreeFile(pfile);
+	m_bConfigLoaded = true;
+
+	gEngfuncs.Con_DPrintf("[Scoreboard] Config loaded: %dx%d\n", m_iCfgWidth, m_iCfgHeight);
+}
+
+//=============================================================================
+// 多人模式检测
+//=============================================================================
+
+bool CNuklearScoreboard::IsMultiplayer() const
+{
+	return gEngfuncs.GetMaxClients() > 1;
+}
+
+//=============================================================================
+// 显示/隐藏
+//=============================================================================
+
+void CNuklearScoreboard::Show(bool show)
+{
+	if (show && !IsMultiplayer())
+	{
+		return;
+	}
+
+	if (m_bVisible != show)
+	{
+		m_bVisible = show;
+		if (show)
+		{
+			Update();
+		}
+	}
+}
+
+bool CNuklearScoreboard::IsVisible() const
+{
+	return m_bVisible;
+}
+
+int CNuklearScoreboard::GetHighlightRow() const
+{
+	return m_iHighlightRow;
+}
+
+//=============================================================================
+// 布局计算
+//=============================================================================
+
+void CNuklearScoreboard::CalculateLayout()
+{
+	// 使用配置中的固定大小
+	m_iWidth = m_iCfgWidth;
+	m_iHeight = m_iCfgHeight;
+
+	// 计算位置（-1 表示居中）
+	if (m_iCfgX == -1)
+		m_iX = (ScreenWidth - m_iWidth) / 2;
+	else
+		m_iX = m_iCfgX;
+
+	if (m_iCfgY == -1)
+		m_iY = (ScreenHeight - m_iHeight) / 2;
+	else
+		m_iY = m_iCfgY;
+
+	// 内容起始 Y 位置 (表头下方)
+	m_iContentY = m_iY + m_iCfgHeaderHeight + m_iCfgRowHeight + m_iCfgPadding;
+
+	// 计算可见行数
+	int availableHeight = m_iHeight - m_iCfgHeaderHeight - m_iCfgRowHeight - m_iCfgPadding * 2;
+	m_iMaxVisibleRows = availableHeight / m_iCfgRowHeight;
+}
+
+//=============================================================================
+// 数据收集和排序
+//=============================================================================
+
+void CNuklearScoreboard::CollectPlayerData()
+{
+	// 获取所有玩家信息
+	if (gViewPort)
+	{
+		gViewPort->GetAllPlayersInfo();
+
+		// 复制玩家信息
+		for (int i = 1; i <= MAX_PLAYERS; i++)
+		{
+			hud_player_info_t* pl_info = &g_PlayerInfoList[i];
+			extra_player_info_t* extra_info = &g_PlayerExtraInfo[i];
+
+			if (pl_info->name && pl_info->name[0])
+			{
+				m_PlayerInfo[i].connected = true;
+				strncpy(m_PlayerInfo[i].name, pl_info->name, MAX_PLAYER_NAME_LENGTH - 1);
+				m_PlayerInfo[i].name[MAX_PLAYER_NAME_LENGTH - 1] = '\0';
+				m_PlayerInfo[i].score = extra_info->frags;
+				m_PlayerInfo[i].deaths = extra_info->deaths;
+				m_PlayerInfo[i].ping = pl_info->ping;
+				m_PlayerInfo[i].packetloss = pl_info->packetloss;
+				m_PlayerInfo[i].teamnumber = extra_info->teamnumber;
+				m_PlayerInfo[i].playerclass = extra_info->playerclass;
+				m_PlayerInfo[i].thisplayer = pl_info->thisplayer;
+				m_PlayerInfo[i].alive = true; // 暂时默认存活，因为 extra_player_info_t 没有 health 字段
+
+				if (pl_info->thisplayer)
+				{
+					m_iPlayerNum = i;
+				}
+			}
+			else
+			{
+				m_PlayerInfo[i].connected = false;
+			}
+		}
+	}
+
+	// 获取服务器名称
+	if (gViewPort && gViewPort->m_szServerName)
+	{
+		strncpy(m_szServerName, gViewPort->m_szServerName, 255);
+		m_szServerName[255] = '\0';
+	}
+}
+
+void CNuklearScoreboard::RebuildTeams()
+{
+	// 清除队伍玩家计数
+	for (int i = 1; i <= m_iNumTeams; i++)
+	{
+		m_TeamInfo[i].players = 0;
+	}
+
+	// 重建队伍列表
+	CollectPlayerData();
+	m_iNumTeams = 0;
+
+	for (int i = 1; i <= MAX_PLAYERS; i++)
+	{
+		if (!m_PlayerInfo[i].connected)
+			continue;
+
+		if (m_PlayerInfo[i].teamnumber == 0)
+			continue; // 跳过未选择队伍的玩家
+
+		// 检查是否已存在该队伍
+		int j;
+		for (j = 1; j <= m_iNumTeams; j++)
+		{
+			if (m_TeamInfo[j].name[0] == '\0')
+				break;
+
+			// 简单比较队伍名 (实际应该更精确)
+			if (m_TeamInfo[j].teamnumber == m_PlayerInfo[i].teamnumber)
+				break;
+		}
+
+		if (j > m_iNumTeams)
+		{
+			// 创建新队伍
+			for (int k = 1; k <= m_iNumTeams; k++)
+			{
+				if (m_TeamInfo[k].name[0] == '\0')
+				{
+					j = k;
+					break;
+				}
+			}
+			m_iNumTeams = max(j, m_iNumTeams);
+
+			// 获取队伍名称
+			if (gViewPort)
+			{
+				const char* teamName = gViewPort->GetTeamName(m_PlayerInfo[i].teamnumber);
+				if (teamName)
+				{
+					strncpy(m_TeamInfo[j].name, teamName, MAX_TEAM_NAME - 1);
+				}
+			}
+			m_TeamInfo[j].teamnumber = m_PlayerInfo[i].teamnumber;
+		}
+
+		m_TeamInfo[j].players++;
+	}
+
+	// 清除空队伍
+	for (int i = 1; i <= m_iNumTeams; i++)
+	{
+		if (m_TeamInfo[i].players < 1)
+		{
+			memset(&m_TeamInfo[i], 0, sizeof(TeamInfo_t));
+		}
+	}
+}
+
+void CNuklearScoreboard::SortPlayers()
+{
+	m_iNumSorted = 0;
+
+	// 清除已排序标记
+	memset(m_bHasBeenSorted, 0, sizeof(m_bHasBeenSorted));
+
+	// 如果是团队模式，先排序队伍
+	if (gHUD.m_Teamplay)
+	{
+		// 计算队伍分数
+		for (int i = 1; i <= m_iNumTeams; i++)
+		{
+			if (!m_TeamInfo[i].scores_overriden)
+			{
+				m_TeamInfo[i].frags = 0;
+				m_TeamInfo[i].deaths = 0;
+			}
+			m_TeamInfo[i].ping = 0;
+			m_TeamInfo[i].packetloss = 0;
+		}
+
+		// 累加玩家分数到队伍
+		for (int i = 1; i <= MAX_PLAYERS; i++)
+		{
+			if (!m_PlayerInfo[i].connected)
+				continue;
+
+			// 找到玩家所属队伍
+			for (int j = 1; j <= m_iNumTeams; j++)
+			{
+				if (m_TeamInfo[j].teamnumber == m_PlayerInfo[i].teamnumber)
+				{
+					if (!m_TeamInfo[j].scores_overriden)
+					{
+						m_TeamInfo[j].frags += m_PlayerInfo[i].score;
+						m_TeamInfo[j].deaths += m_PlayerInfo[i].deaths;
+					}
+					m_TeamInfo[j].ping += m_PlayerInfo[i].ping;
+					m_TeamInfo[j].packetloss += m_PlayerInfo[i].packetloss;
+
+					if (m_PlayerInfo[i].thisplayer)
+						m_TeamInfo[j].ownteam = true;
+
+					break;
+				}
+			}
+		}
+
+		// 计算队伍平均 ping
+		for (int i = 1; i <= m_iNumTeams; i++)
+		{
+			m_TeamInfo[i].already_drawn = false;
+			if (m_TeamInfo[i].players > 0)
+			{
+				m_TeamInfo[i].ping /= m_TeamInfo[i].players;
+				m_TeamInfo[i].packetloss /= m_TeamInfo[i].players;
+			}
+		}
+
+		// 按分数排序队伍
+		while (true)
+		{
+			int best_team = 0;
+			int highest_frags = -99999;
+			int lowest_deaths = 99999;
+
+			for (int i = 1; i <= m_iNumTeams; i++)
+			{
+				if (m_TeamInfo[i].players < 1)
+					continue;
+
+				if (!m_TeamInfo[i].already_drawn && m_TeamInfo[i].frags >= highest_frags)
+				{
+					if (m_TeamInfo[i].frags > highest_frags || m_TeamInfo[i].deaths < lowest_deaths)
+					{
+						best_team = i;
+						lowest_deaths = m_TeamInfo[i].deaths;
+						highest_frags = m_TeamInfo[i].frags;
+					}
+				}
+			}
+
+			if (!best_team)
+				break;
+
+			// 添加队伍行
+			m_SortedPlayers[m_iNumSorted].playerIndex = best_team;
+			m_SortedPlayers[m_iNumSorted].isTeam = true;
+			m_SortedPlayers[m_iNumSorted].teamIndex = best_team;
+			m_SortedPlayers[m_iNumSorted].teamType = TEAM_YES;
+			m_iNumSorted++;
+
+			m_TeamInfo[best_team].already_drawn = true;
+
+			// 添加该队伍的玩家
+			SortTeamPlayers(best_team);
+		}
+
+		// 添加观察者
+		SortTeamPlayers(TEAM_SPECTATORS);
+	}
+	else
+	{
+		// 非团队模式，直接排序所有玩家
+		SortTeamPlayers(0);
+	}
+}
+
+void CNuklearScoreboard::SortTeamPlayers(int teamIndex)
+{
+	bool teamCreated = false;
+	bool bHasTeamPlayers = false;
+
+	// 判断是否是特定队伍的玩家（teamIndex > TEAM_SPECTATORS 表示特定队伍）
+	bool bIsSpecificTeam = (teamIndex >= 1 && teamIndex <= m_iNumTeams);
+
+	while (true)
+	{
+		int best_player = 0;
+		int highest_frags = -99999;
+		int lowest_deaths = 99999;
+
+		for (int i = 1; i <= MAX_PLAYERS; i++)
+		{
+			if (!m_PlayerInfo[i].connected)
+				continue;
+
+			if (m_bHasBeenSorted[i])
+				continue;
+
+			// 检查是否符合筛选条件
+			bool bMatch = false;
+
+			if (teamIndex == 0)
+			{
+				// teamIndex == 0: 排序所有玩家（非团队模式）
+				bMatch = true;
+			}
+			else if (teamIndex == TEAM_SPECTATORS)
+			{
+				// TEAM_SPECTATORS: 排序观察者（不在任何队伍中的玩家）
+				// 检查玩家是否在已知队伍中
+				bool bInTeam = false;
+				for (int j = 1; j <= m_iNumTeams; j++)
+				{
+					if (m_TeamInfo[j].teamnumber == m_PlayerInfo[i].teamnumber)
+					{
+						bInTeam = true;
+						break;
+					}
+				}
+				bMatch = !bInTeam;
+			}
+			else if (bIsSpecificTeam)
+			{
+				// 特定队伍
+				bMatch = (m_PlayerInfo[i].teamnumber == m_TeamInfo[teamIndex].teamnumber);
+			}
+
+			if (!bMatch)
+				continue;
+
+			// 找到最高分玩家
+			if (m_PlayerInfo[i].score >= highest_frags)
+			{
+				if (m_PlayerInfo[i].score > highest_frags || m_PlayerInfo[i].deaths < lowest_deaths)
+				{
+					best_player = i;
+					lowest_deaths = m_PlayerInfo[i].deaths;
+					highest_frags = m_PlayerInfo[i].score;
+				}
+			}
+		}
+
+		if (!best_player)
+			break;
+
+		// 如果还没创建队伍行，且需要创建
+		if (!teamCreated && (teamIndex == TEAM_SPECTATORS))
+		{
+			// 添加观察者队伍行
+			m_SortedPlayers[m_iNumSorted].playerIndex = 0;
+			m_SortedPlayers[m_iNumSorted].isTeam = true;
+			m_SortedPlayers[m_iNumSorted].teamIndex = 0;
+			m_SortedPlayers[m_iNumSorted].teamType = TEAM_SPECTATORS;
+			m_iNumSorted++;
+
+			teamCreated = true;
+		}
+
+		// 标记找到玩家了
+		bHasTeamPlayers = true;
+
+		// 添加玩家
+		m_SortedPlayers[m_iNumSorted].playerIndex = best_player;
+		m_SortedPlayers[m_iNumSorted].isTeam = false;
+		m_SortedPlayers[m_iNumSorted].teamIndex = teamIndex;
+		m_SortedPlayers[m_iNumSorted].teamType = TEAM_NO;
+		m_bHasBeenSorted[best_player] = true;
+		m_iNumSorted++;
+	}
+
+	// 添加分隔行 (仅当是特定队伍且有玩家时)
+	if (bIsSpecificTeam && bHasTeamPlayers)
+	{
+		m_SortedPlayers[m_iNumSorted].playerIndex = 0;
+		m_SortedPlayers[m_iNumSorted].isTeam = false;
+		m_SortedPlayers[m_iNumSorted].teamIndex = 0;
+		m_SortedPlayers[m_iNumSorted].teamType = TEAM_BLANK;
+		m_iNumSorted++;
+	}
+}
+
+void CNuklearScoreboard::Update()
+{
+	CollectPlayerData();
+	RebuildTeams();
+	SortPlayers();
+	m_bNeedsUpdate = false;
+}
+
+//=============================================================================
+// 绘制函数
+//=============================================================================
+
+void CNuklearScoreboard::Draw()
+{
+	// 诊断: 始终绘制一个小方块来验证绘制函数在工作
+	if (m_bVisible)
+	{
+		FillRGBA(10, 10, 50, 50, 255, 0, 0, 255); // 红色 = 可见
+	}
+	else
+	{
+		FillRGBA(10, 10, 50, 50, 0, 255, 0, 255); // 绿色 = 隐藏
+	}
+
+	if (!m_bVisible)
+		return;
+
+	// 绘制背景
+	DrawBackground();
+
+	// 绘制标题栏
+	DrawHeader();
+
+	// 绘制列标题
+	DrawColumnHeaders();
+
+	// 绘制内容
+	DrawPlayerList();
+
+	// 绘制高亮效果
+	if (m_iHighlightRow >= 0 && m_iHighlightRow < m_iNumSorted)
+	{
+		DrawHighlight(m_iHighlightRow);
+	}
+}
+
+void CNuklearScoreboard::DrawBackground()
+{
+	int x = m_iX;
+	int y = m_iY;
+	int w = m_iWidth;
+	int h = m_iHeight;
+
+	DrawRect(x, y, w, h, m_iCfgBgColor[0], m_iCfgBgColor[1], m_iCfgBgColor[2], m_iCfgBgColor[3]);
+
+	DrawBorder(x, y, w, h, m_iCfgBorderWidth, m_iCfgBorderColor[0], m_iCfgBorderColor[1], m_iCfgBorderColor[2], m_iCfgBorderColor[3]);
+}
+
+void CNuklearScoreboard::DrawHeader()
+{
+	int x = m_iX + m_iCfgPadding;
+	int y = m_iY + m_iCfgPadding;
+	int w = m_iWidth - m_iCfgPadding * 2;
+	int h = m_iCfgHeaderHeight;
+
+	// 标题
+	DrawString(x, y, m_szCfgTitle, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+
+	// 显示玩家数量
+	char playerCount[64];
+	int totalPlayers = 0;
+	for (int i = 1; i <= MAX_PLAYERS; i++)
+	{
+		if (m_PlayerInfo[i].connected)
+			totalPlayers++;
+	}
+
+	sprintf(playerCount, m_szCfgPlayerCountFormat, totalPlayers);
+	int textWidth = ConsoleStringLen(playerCount);
+	DrawString(m_iX + m_iWidth - m_iCfgPadding - textWidth, y, playerCount, 180, 180, 180);
+
+	// 绘制副标题
+	DrawStringCenter(m_iX + m_iWidth / 2, y + m_iCfgHeaderHeight - m_iCfgPadding - m_iCharHeight, m_szCfgSubtitle, 100, 100, 100);
+}
+
+void CNuklearScoreboard::DrawColumnHeaders()
+{
+	int y = m_iY + m_iCfgHeaderHeight + 4;
+	int colY = m_iCfgRowHeight;
+
+	DrawRect(m_iX + m_iCfgBorderWidth, y, m_iWidth - m_iCfgBorderWidth * 2, colY,
+		m_iCfgHeaderBgColor[0], m_iCfgHeaderBgColor[1], m_iCfgHeaderBgColor[2], m_iCfgHeaderBgColor[3]);
+
+	int colX = m_iX + m_iCfgBorderWidth + m_iCfgPadding;
+
+	colX += 30;
+
+	DrawString(colX, y + 6, m_szCfgColName, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+	colX += m_iCfgColNameWidth;
+
+	if (gHUD.m_Teamplay)
+	{
+		DrawString(colX, y + 6, m_szCfgColTeam, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+		colX += m_iCfgColTeamWidth;
+	}
+
+	colX += m_iCfgColClassWidth;
+
+	int scoreW = ConsoleStringLen(m_szCfgColScore);
+	DrawString(colX + m_iCfgColScoreWidth - scoreW, y + 6, m_szCfgColScore, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+	colX += m_iCfgColScoreWidth;
+
+	int deathsW = ConsoleStringLen(m_szCfgColDeaths);
+	DrawString(colX + m_iCfgColDeathsWidth - deathsW, y + 6, m_szCfgColDeaths, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+	colX += m_iCfgColDeathsWidth;
+
+	int latencyW = ConsoleStringLen(m_szCfgColPing);
+	DrawString(colX + m_iCfgColPingWidth - latencyW, y + 6, m_szCfgColPing, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+	colX += m_iCfgColPingWidth;
+
+	int voiceW = ConsoleStringLen(m_szCfgColVoice);
+	DrawString(colX + m_iCfgColVoiceWidth - voiceW, y + 6, m_szCfgColVoice, m_iCfgHeaderTextColor[0], m_iCfgHeaderTextColor[1], m_iCfgHeaderTextColor[2]);
+}
+
+void CNuklearScoreboard::DrawPlayerList()
+{
+	int startY = m_iY + m_iCfgHeaderHeight + m_iCfgRowHeight + m_iCfgPadding;
+	int y = startY;
+	int rowHeight = m_iCfgRowHeight;
+
+	for (int i = 0; i < m_iNumSorted; i++)
+	{
+		if (y + rowHeight > m_iY + m_iHeight - 10)
+			break;
+
+		if (m_SortedPlayers[i].isTeam)
+		{
+			DrawTeamRow(m_iX + m_iCfgBorderWidth, y,
+				i, m_iCfgTeamRowHeight,
+				m_SortedPlayers[i].teamIndex, m_SortedPlayers[i].teamType);
+			y += m_iCfgTeamRowHeight;
+		}
+		else if (m_SortedPlayers[i].teamType == TEAM_BLANK)
+		{
+			DrawRect(m_iX + m_iCfgBorderWidth, y + 2,
+				m_iWidth - m_iCfgBorderWidth * 2, 1, 50, 50, 50, 255);
+			y += 6;
+		}
+		else
+		{
+			DrawPlayerRow(m_iX + m_iCfgBorderWidth, y, i, rowHeight);
+			y += rowHeight;
+		}
+	}
+}
+
+void CNuklearScoreboard::DrawPlayerRow(int x, int y, int row, int height)
+{
+	int sortedIndex = m_SortedPlayers[row].playerIndex;
+	PlayerInfo_t* player = &m_PlayerInfo[sortedIndex];
+
+	if (!player->connected)
+		return;
+
+	bool isEven = (row % 2 == 0);
+	if (isEven)
+	{
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height,
+			m_iCfgRowEvenColor[0], m_iCfgRowEvenColor[1], m_iCfgRowEvenColor[2], m_iCfgRowEvenColor[3]);
+	}
+	else
+	{
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height,
+			m_iCfgRowOddColor[0], m_iCfgRowOddColor[1], m_iCfgRowOddColor[2], m_iCfgRowOddColor[3]);
+	}
+
+	if (player->thisplayer)
+	{
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height,
+			m_iCfgSelfHighlightColor[0],
+			m_iCfgSelfHighlightColor[1],
+			m_iCfgSelfHighlightColor[2],
+			m_iCfgSelfHighlightColor[3]);
+	}
+
+	if (sortedIndex == m_iLastKilledBy && m_fLastKillTime > gHUD.m_flTime && m_iLastKilledBy != 0)
+	{
+		int alpha = (int)(255.0f * min(1.0f, (m_fLastKillTime - gHUD.m_flTime) / 2.0f));
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height, 255, 0, 0, alpha);
+	}
+
+	DrawPlayerInfo(row);
+}
+
+void CNuklearScoreboard::DrawTeamRow(int x, int y, int row, int height, int teamIndex, int teamType)
+{
+	if (teamType == TEAM_SPECTATORS)
+	{
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height, 40, 40, 40, 200);
+		DrawString(x + m_iCfgPadding, y + 5, m_szCfgSpectators, 100, 100, 100);
+
+		DrawRect(x, y + height - 2, m_iWidth - m_iCfgBorderWidth * 2, 2, 100, 100, 100, 255);
+	}
+	else if (teamType == TEAM_YES && teamIndex > 0 && teamIndex <= m_iNumTeams)
+	{
+		TeamInfo_t* team = &m_TeamInfo[teamIndex];
+
+		int teamColorIndex = team->teamnumber % MAX_TEAM_COLORS;
+
+		DrawRect(x, y, m_iWidth - m_iCfgBorderWidth * 2, height,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b,
+			40);
+
+		char teamText[128];
+		sprintf(teamText, "%s (%d)", team->name, team->players);
+		DrawString(x + m_iCfgPadding, y + 5, teamText,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b);
+
+		char scoreText[32];
+		sprintf(scoreText, "%d", team->frags);
+		int scoreX = x + m_iCfgColNameWidth + m_iCfgColTeamWidth + m_iCfgColClassWidth + m_iCfgColScoreWidth - ConsoleStringLen(scoreText);
+		DrawString(scoreX, y + 5, scoreText,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b);
+
+		sprintf(scoreText, "%d", team->deaths);
+		scoreX = x + m_iCfgColNameWidth + m_iCfgColTeamWidth + m_iCfgColClassWidth + m_iCfgColScoreWidth + m_iCfgColDeathsWidth - ConsoleStringLen(scoreText);
+		DrawString(scoreX, y + 5, scoreText,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b);
+
+		sprintf(scoreText, "%d", team->ping);
+		scoreX = x + m_iCfgColNameWidth + m_iCfgColTeamWidth + m_iCfgColClassWidth + m_iCfgColScoreWidth + m_iCfgColDeathsWidth + m_iCfgColPingWidth - ConsoleStringLen(scoreText);
+		DrawString(scoreX, y + 5, scoreText,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b);
+
+		DrawRect(x, y + height - 2, m_iWidth - m_iCfgBorderWidth * 2, 2,
+			g_TeamColors[teamColorIndex].r,
+			g_TeamColors[teamColorIndex].g,
+			g_TeamColors[teamColorIndex].b,
+			255);
+	}
+}
+
+void CNuklearScoreboard::DrawPlayerInfo(int row)
+{
+	int sortedIndex = m_SortedPlayers[row].playerIndex;
+	PlayerInfo_t* player = &m_PlayerInfo[sortedIndex];
+
+	int x = m_iX + m_iCfgBorderWidth + m_iCfgPadding;
+	int y = GetRowY(row);
+	int colX = x;
+
+	int teamColorIndex = player->teamnumber % MAX_TEAM_COLORS;
+	int r = g_TeamColors[teamColorIndex].r;
+	int g = g_TeamColors[teamColorIndex].g;
+	int b = g_TeamColors[teamColorIndex].b;
+
+	if (player->thisplayer)
+	{
+		r = 255;
+		g = 255;
+		b = 255;
+	}
+
+	char indexStr[8];
+	sprintf(indexStr, "%d.", sortedIndex);
+	DrawString(colX, y + 3, indexStr, 100, 100, 100);
+	colX += 30;
+
+	char nameText[MAX_PLAYER_NAME_LENGTH + 4];
+	sprintf(nameText, "%s  ", player->name);
+	DrawString(colX, y + 3, nameText, r, g, b);
+	colX += m_iCfgColNameWidth;
+
+	if (gHUD.m_Teamplay)
+	{
+		if (gViewPort)
+		{
+			const char* teamName = gViewPort->GetTeamName(player->teamnumber);
+			if (teamName)
+			{
+				DrawString(colX, y + 3, teamName, r, g, b);
+			}
+		}
+		colX += m_iCfgColTeamWidth;
+	}
+
+	colX += m_iCfgColClassWidth;
+
+	char scoreText[16];
+	sprintf(scoreText, "%d", player->score);
+	int textWidth = ConsoleStringLen(scoreText);
+	DrawString(colX + m_iCfgColScoreWidth - textWidth - m_iCfgPadding, y + 3, scoreText, r, g, b);
+	colX += m_iCfgColScoreWidth;
+
+	sprintf(scoreText, "%d", player->deaths);
+	textWidth = ConsoleStringLen(scoreText);
+	DrawString(colX + m_iCfgColDeathsWidth - textWidth - m_iCfgPadding, y + 3, scoreText, 200, 200, 200);
+	colX += m_iCfgColDeathsWidth;
+
+	int pingR = 100, pingG = 200, pingB = 100;
+	if (player->ping > 150)
+	{
+		pingR = 255;
+		pingG = 100;
+		pingB = 100;
+	}
+	else if (player->ping > 80)
+	{
+		pingR = 255;
+		pingG = 200;
+		pingB = 100;
+	}
+
+	sprintf(scoreText, "%d", player->ping);
+	textWidth = ConsoleStringLen(scoreText);
+	DrawString(colX + m_iCfgColPingWidth - textWidth - m_iCfgPadding, y + 3, scoreText, pingR, pingG, pingB);
+	colX += m_iCfgColPingWidth;
+
+	CVoiceStatus *pVoiceMgr = GetClientVoiceMgr();
+	if (pVoiceMgr && sortedIndex > 0)
+	{
+		bool bBanned = pVoiceMgr->IsPlayerBlocked(sortedIndex);
+		bool bTalking = false;
+		bool bNeverSpoken = false;
+
+		if (!bBanned)
+		{
+			bTalking = pVoiceMgr->m_VoicePlayers[sortedIndex - 1];
+			bNeverSpoken = !pVoiceMgr->m_VoiceEnabledPlayers[sortedIndex - 1];
+		}
+
+		char voiceChar[4] = "";
+		int iconR = 255, iconG = 255, iconB = 255;
+
+		if (bBanned)
+		{
+			strcpy(voiceChar, "[X]");
+			iconR = 255;
+			iconG = 50;
+			iconB = 50;
+		}
+		else if (bTalking)
+		{
+			bool bBlink = (fmod(gHUD.m_flTime, 0.4f) < 0.2f);
+			strcpy(voiceChar, bBlink ? "<*>" : "<o>");
+			iconR = 255;
+			iconG = 170;
+			iconB = 0;
+		}
+		else if (bNeverSpoken)
+		{
+			strcpy(voiceChar, "[-]");
+			iconR = 100;
+			iconG = 100;
+			iconB = 100;
+		}
+		else
+		{
+			strcpy(voiceChar, "[.]");
+			iconR = 150;
+			iconG = 150;
+			iconB = 150;
+		}
+
+		int voiceX = colX + m_iCfgColVoiceWidth - ConsoleStringLen(voiceChar) - m_iCfgPadding;
+		DrawString(voiceX, y + 3, voiceChar, iconR, iconG, iconB);
+	}
+}
+
+void CNuklearScoreboard::DrawHighlight(int row)
+{
+	int y = GetRowY(row);
+	int height = GetRowHeight(row);
+
+	DrawRect(m_iX + m_iCfgBorderWidth, y, m_iWidth - m_iCfgBorderWidth * 2, height,
+		m_iCfgSelfHighlightColor[0], m_iCfgSelfHighlightColor[1], m_iCfgSelfHighlightColor[2], m_iCfgSelfHighlightColor[3]);
+}
+
+int CNuklearScoreboard::GetRowY(int row)
+{
+	int y = m_iY + m_iCfgHeaderHeight + m_iCfgRowHeight + m_iCfgPadding;
+
+	for (int i = 0; i < row && i < m_iNumSorted; i++)
+	{
+		if (m_SortedPlayers[i].isTeam)
+		{
+			y += m_iCfgTeamRowHeight;
+		}
+		else if (m_SortedPlayers[i].teamType == TEAM_BLANK)
+		{
+			y += 6;
+		}
+		else
+		{
+			y += m_iCfgRowHeight;
+		}
+	}
+
+	return y;
+}
+
+int CNuklearScoreboard::GetRowHeight(int row)
+{
+	if (m_SortedPlayers[row].isTeam)
+	{
+		return m_iCfgTeamRowHeight;
+	}
+	else if (m_SortedPlayers[row].teamType == TEAM_BLANK)
+	{
+		return 6;
+	}
+	return m_iCfgRowHeight;
+}
+
+//=============================================================================
+// 工具函数
+//=============================================================================
+
+int CNuklearScoreboard::DrawString(int x, int y, const char* text, int r, int g, int b)
+{
+	if (!text)
+		return 0;
+
+	gEngfuncs.pfnDrawSetTextColor(r / 255.0f, g / 255.0f, b / 255.0f);
+	return DrawConsoleString(x, y, (char*)text);
+}
+
+int CNuklearScoreboard::DrawStringCenter(int x, int y, const char* text, int r, int g, int b)
+{
+	if (!text)
+		return 0;
+
+	int width = ConsoleStringLen(text);
+	return DrawString(x - width / 2, y, text, r, g, b);
+}
+
+void CNuklearScoreboard::DrawRect(int x, int y, int w, int h, int r, int g, int b, int a)
+{
+	FillRGBA(x, y, w, h, r, g, b, a);
+}
+
+void CNuklearScoreboard::DrawBorder(int x, int y, int w, int h, int border, int r, int g, int b, int a)
+{
+	// 上边框
+	FillRGBA(x, y, w, border, r, g, b, a);
+	// 下边框
+	FillRGBA(x, y + h - border, w, border, r, g, b, a);
+	// 左边框
+	FillRGBA(x, y, border, h, r, g, b, a);
+	// 右边框
+	FillRGBA(x + w - border, y, border, h, r, g, b, a);
+}
+
+//=============================================================================
+// 输入处理
+//=============================================================================
+
+void CNuklearScoreboard::MousePressed(int x, int y)
+{
+	// 检查是否在计分板区域内
+	if (x < m_iX || x > m_iX + m_iWidth || y < m_iY || y > m_iY + m_iHeight)
+	{
+		return;
+	}
+
+	// 查找点击的行
+	int currentY = m_iY + m_iCfgHeaderHeight + m_iCfgRowHeight + m_iCfgPadding;
+
+	for (int i = 0; i < m_iNumSorted; i++)
+	{
+		int rowHeight = GetRowHeight(i);
+
+		if (y >= currentY && y < currentY + rowHeight)
+		{
+			m_iHighlightRow = i;
+
+			// 如果是玩家行，点击可以静音/取消静音
+			if (!m_SortedPlayers[i].isTeam && m_SortedPlayers[i].teamType != TEAM_BLANK)
+			{
+				int playerIndex = m_SortedPlayers[i].playerIndex;
+				if (playerIndex > 0 && !m_PlayerInfo[playerIndex].thisplayer)
+				{
+					// 切换静音状态
+					m_iMutedPlayers[playerIndex] = !m_iMutedPlayers[playerIndex];
+
+					// 发送命令
+					char cmd[128];
+					if (m_iMutedPlayers[playerIndex])
+					{
+						sprintf(cmd, "voicemute %d", playerIndex);
+					}
+					else
+					{
+						sprintf(cmd, "voiceunmute %d", playerIndex);
+					}
+					ClientCmd(cmd);
+				}
+			}
+			return;
+		}
+
+		currentY += rowHeight;
+	}
+}
+
+void CNuklearScoreboard::MouseMoved(int x, int y)
+{
+	// 检查是否在计分板区域内
+	if (x < m_iX || x > m_iX + m_iWidth || y < m_iY || y > m_iY + m_iHeight)
+	{
+		m_iHighlightRow = -1;
+		return;
+	}
+
+	// 查找悬停的行
+	int currentY = m_iY + m_iCfgHeaderHeight + m_iCfgRowHeight + m_iCfgPadding;
+
+	for (int i = 0; i < m_iNumSorted; i++)
+	{
+		int rowHeight = GetRowHeight(i);
+
+		if (y >= currentY && y < currentY + rowHeight)
+		{
+			m_iHighlightRow = i;
+			return;
+		}
+
+		currentY += rowHeight;
+	}
+
+	m_iHighlightRow = -1;
+}
+
+void CNuklearScoreboard::KeyPressed(int key)
+{
+	// ESC 或 TAB 键关闭计分板
+	if (key == K_ESCAPE || key == K_TAB)
+	{
+		Show(false);
+		ClientCmd("_hideScoreboard");
+	}
+}
+
+//=============================================================================
+// 击杀消息
+//=============================================================================
+
+void CNuklearScoreboard::DeathMsg(int killer, int victim)
+{
+	if (victim == m_iPlayerNum || killer == 0)
+	{
+		m_iLastKilledBy = killer ? killer : m_iPlayerNum;
+		m_fLastKillTime = gHUD.m_flTime + 10.0f;
+
+		if (killer == m_iPlayerNum)
+		{
+			m_iLastKilledBy = m_iPlayerNum;
+		}
+	}
+}

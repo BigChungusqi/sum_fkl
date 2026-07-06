@@ -1,0 +1,348 @@
+﻿严重性	代码	说明	项目	文件	行	抑制状态	详细信息
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2011	“CHudAmmoSecondary”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	145		
+错误	C2011	“CHudAmmoSecondary”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	145		
+错误	C2011	“CHudAmmoSecondary”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	145		
+错误	C2011	“CHudAmmoSecondary”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	145		
+错误	C2011	“CHudAmmo”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	100		
+错误	C2011	“CHudAmmo”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	100		
+错误	C2011	“CHudAmmo”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	100		
+错误	C2011	“CHudAmmo”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	100		
+错误	C2011	“CHudBase”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	67		
+错误	C2011	“CHudBase”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	67		
+错误	C2011	“CHudBase”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	67		
+错误	C2011	“CHudBase”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	67		
+错误	C2011	“CHudBattery”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	387		
+错误	C2011	“CHudBattery”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	387		
+错误	C2011	“CHudBattery”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	387		
+错误	C2011	“CHudBattery”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	387		
+错误	C2011	“CHudDeathNotice”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	329		
+错误	C2011	“CHudDeathNotice”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	329		
+错误	C2011	“CHudDeathNotice”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	329		
+错误	C2011	“CHudDeathNotice”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	329		
+错误	C2011	“CHudFlashlight”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	409		
+错误	C2011	“CHudFlashlight”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	409		
+错误	C2011	“CHudFlashlight”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	409		
+错误	C2011	“CHudFlashlight”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	409		
+错误	C2011	“CHudGeiger”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	176		
+错误	C2011	“CHudGeiger”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	176		
+错误	C2011	“CHudGeiger”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	176		
+错误	C2011	“CHudGeiger”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	176		
+错误	C2011	“CHudHealth”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	101		
+错误	C2011	“CHudHealth”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	101		
+错误	C2011	“CHudHealth”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	101		
+错误	C2011	“CHudHealth”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	101		
+错误	C2011	“CHudMenu”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	345		
+错误	C2011	“CHudMenu”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	345		
+错误	C2011	“CHudMenu”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	345		
+错误	C2011	“CHudMenu”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	345		
+错误	C2011	“CHudMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	472		
+错误	C2011	“CHudMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	472		
+错误	C2011	“CHudMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	472		
+错误	C2011	“CHudMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	472		
+错误	C2011	“CHudSayText”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	366		
+错误	C2011	“CHudSayText”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	366		
+错误	C2011	“CHudSayText”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	366		
+错误	C2011	“CHudSayText”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	366		
+错误	C2011	“CHudStatusBar”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	233		
+错误	C2011	“CHudStatusBar”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	233		
+错误	C2011	“CHudStatusBar”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	233		
+错误	C2011	“CHudStatusBar”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	233		
+错误	C2011	“CHudStatusIcons”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	508		
+错误	C2011	“CHudStatusIcons”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	508		
+错误	C2011	“CHudStatusIcons”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	508		
+错误	C2011	“CHudStatusIcons”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	508		
+错误	C2011	“CHudTextMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	458		
+错误	C2011	“CHudTextMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	458		
+错误	C2011	“CHudTextMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	458		
+错误	C2011	“CHudTextMessage”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	458		
+错误	C2011	“CHudTrain”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	192		
+错误	C2011	“CHudTrain”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	192		
+错误	C2011	“CHudTrain”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	192		
+错误	C2011	“CHudTrain”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	192		
+错误	C2011	“CHud”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	548		
+错误	C2011	“CHud”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	548		
+错误	C2011	“CHud”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	548		
+错误	C2011	“CHud”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	548		
+错误	C2665	“CImageLabel::CImageLabel”: 没有重载函数可以转换所有参数类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	449		
+错误	C2086	“const int maxHUDMessages”: 重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2086	“const int maxHUDMessages”: 重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2086	“const int maxHUDMessages”: 重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2086	“const int maxHUDMessages”: 重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2371	“DAMAGE_IMAGE”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	96		
+错误	C2371	“DAMAGE_IMAGE”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	96		
+错误	C2371	“DAMAGE_IMAGE”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	96		
+错误	C2371	“DAMAGE_IMAGE”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\health.h	96		
+错误	C2011	“extra_player_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	297		
+错误	C2011	“extra_player_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	297		
+错误	C2011	“extra_player_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	297		
+错误	C2011	“extra_player_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	297		
+错误	C2371	“gHUD”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	41		
+错误	C2079	“gHUD”使用未定义的 class“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	41		
+错误	C2011	“HUDLIST”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	83		
+错误	C2011	“HUDLIST”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	83		
+错误	C2011	“HUDLIST”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	83		
+错误	C2011	“HUDLIST”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	83		
+错误	C2374	“maxHUDMessages”: 重定义；多次初始化	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2374	“maxHUDMessages”: 重定义；多次初始化	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2374	“maxHUDMessages”: 重定义；多次初始化	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2374	“maxHUDMessages”: 重定义；多次初始化	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	436		
+错误	C2365	“MAX_PLAYERS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	45		
+错误	C2365	“MAX_PLAYERS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	45		
+错误	C2365	“MAX_PLAYERS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	45		
+错误	C2365	“MAX_PLAYERS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	45		
+错误	C2365	“MAX_TEAMS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	46		
+错误	C2365	“MAX_TEAMS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	46		
+错误	C2365	“MAX_TEAMS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	46		
+错误	C2365	“MAX_TEAMS”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	46		
+错误	C2365	“MAX_TEAM_NAME”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	47		
+错误	C2365	“MAX_TEAM_NAME”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	47		
+错误	C2365	“MAX_TEAM_NAME”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	47		
+错误	C2365	“MAX_TEAM_NAME”: 重定义；以前的定义是“枚举数”	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	47		
+错误	C2011	“message_parms_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	437		
+错误	C2011	“message_parms_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	437		
+错误	C2011	“message_parms_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	437		
+错误	C2011	“message_parms_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	437		
+错误	C2371	“POSITION”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	41		
+错误	C2371	“POSITION”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	41		
+错误	C2371	“POSITION”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	41		
+错误	C2371	“POSITION”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	41		
+错误	C2371	“RGBA”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	52		
+错误	C2371	“RGBA”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	52		
+错误	C2371	“RGBA”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	52		
+错误	C2371	“RGBA”: 重定义；不同的基类型	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	52		
+错误	C2660	“TeamFortressViewport::CreateCommandMenu”: 函数不接受 4 个参数	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	583		
+错误	C2660	“TeamFortressViewport::CreateCommandMenu”: 函数不接受 4 个参数	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	584		
+错误	C2011	“team_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	306		
+错误	C2011	“team_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	306		
+错误	C2011	“team_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	306		
+错误	C2011	“team_info_t”:“struct”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\hud.h	306		
+错误	C2011	“Vector2D”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	33		
+错误	C2011	“Vector2D”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	33		
+错误	C2011	“Vector2D”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	33		
+错误	C2011	“Vector2D”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	33		
+错误	C2011	“Vector”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	70		
+错误	C2011	“Vector”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	70		
+错误	C2011	“Vector”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	70		
+错误	C2011	“Vector”:“class”类型重定义	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	70		
+错误	C2660	“vgui::Panel::setPos”: 函数不接受 1 个参数	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	455		
+错误	C2198	“void (__cdecl *)(int,int,int,int,int,int,int,int)”: 用于调用的参数太少	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1623		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2447	“{”: 缺少函数标题(是否是老式的形式表?)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	170		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	192		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	208		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	231		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	244		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	286		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\tri.cpp	105		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1493		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1591		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1593		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1593		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1594		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1597		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1601		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1606		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1610		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1618		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1618		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1621		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1621		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1621		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1621		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.h	1623		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	176		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	361		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	371		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	374		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	427		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	433		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	449		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	449		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	449		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	455		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	455		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	583		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	583		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	583		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	584		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	584		
+错误	C2027	使用了未定义类型“CHud”	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	584		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector2D”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	87		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	88		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	92		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	93		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	97		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\cdll_int.cpp	98		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2027	使用了未定义类型“Vector”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2084	函数“char *CVAR_GET_STRING(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	42		
+错误	C2084	函数“char *CVAR_GET_STRING(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	42		
+错误	C2084	函数“char *CVAR_GET_STRING(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	42		
+错误	C2084	函数“char *CVAR_GET_STRING(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	42		
+错误	C2084	函数“client_textmessage_t *TextMessageGet(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	89		
+错误	C2084	函数“client_textmessage_t *TextMessageGet(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	89		
+错误	C2084	函数“client_textmessage_t *TextMessageGet(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	89		
+错误	C2084	函数“client_textmessage_t *TextMessageGet(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	89		
+错误	C2084	函数“cvar_s *CVAR_CREATE(const char *,const char *,const int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	43		
+错误	C2084	函数“cvar_s *CVAR_CREATE(const char *,const char *,const int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	43		
+错误	C2084	函数“cvar_s *CVAR_CREATE(const char *,const char *,const int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	43		
+错误	C2084	函数“cvar_s *CVAR_CREATE(const char *,const char *,const int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	43		
+错误	C2084	函数“float CVAR_GET_FLOAT(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	41		
+错误	C2084	函数“float CVAR_GET_FLOAT(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	41		
+错误	C2084	函数“float CVAR_GET_FLOAT(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	41		
+错误	C2084	函数“float CVAR_GET_FLOAT(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	41		
+错误	C2084	函数“int ConsoleStringLen(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	105		
+错误	C2084	函数“int ConsoleStringLen(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	105		
+错误	C2084	函数“int ConsoleStringLen(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	105		
+错误	C2084	函数“int ConsoleStringLen(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	105		
+错误	C2084	函数“int DrawConsoleString(int,int,const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	95		
+错误	C2084	函数“int DrawConsoleString(int,int,const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	95		
+错误	C2084	函数“int DrawConsoleString(int,int,const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	95		
+错误	C2084	函数“int DrawConsoleString(int,int,const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	95		
+错误	C2084	函数“int SPR_Height(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	86		
+错误	C2084	函数“int SPR_Height(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	86		
+错误	C2084	函数“int SPR_Height(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	86		
+错误	C2084	函数“int SPR_Height(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	86		
+错误	C2084	函数“int SPR_Width(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	87		
+错误	C2084	函数“int SPR_Width(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	87		
+错误	C2084	函数“int SPR_Width(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	87		
+错误	C2084	函数“int SPR_Width(HSPRITE,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	87		
+错误	C2084	函数“int TextMessageDrawChar(int,int,int,int,int,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	90		
+错误	C2084	函数“int TextMessageDrawChar(int,int,int,int,int,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	90		
+错误	C2084	函数“int TextMessageDrawChar(int,int,int,int,int,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	90		
+错误	C2084	函数“int TextMessageDrawChar(int,int,int,int,int,int)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	90		
+错误	C2084	函数“Vector CrossProduct(const Vector &,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2084	函数“Vector CrossProduct(const Vector &,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2084	函数“Vector CrossProduct(const Vector &,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2084	函数“Vector CrossProduct(const Vector &,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	119		
+错误	C2084	函数“Vector operator *(float,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2084	函数“Vector operator *(float,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2084	函数“Vector operator *(float,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2084	函数“Vector operator *(float,const Vector &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	117		
+错误	C2084	函数“Vector2D operator *(float,const Vector2D &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2084	函数“Vector2D operator *(float,const Vector2D &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2084	函数“Vector2D operator *(float,const Vector2D &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2084	函数“Vector2D operator *(float,const Vector2D &)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	65		
+错误	C2084	函数“void CenterPrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	117		
+错误	C2084	函数“void CenterPrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	117		
+错误	C2084	函数“void CenterPrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	117		
+错误	C2084	函数“void CenterPrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	117		
+错误	C2084	函数“void ConsolePrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	112		
+错误	C2084	函数“void ConsolePrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	112		
+错误	C2084	函数“void ConsolePrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	112		
+错误	C2084	函数“void ConsolePrint(const char *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	112		
+错误	C2084	函数“void GetConsoleStringSize(const char *,int *,int *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	100		
+错误	C2084	函数“void GetConsoleStringSize(const char *,int *,int *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	100		
+错误	C2084	函数“void GetConsoleStringSize(const char *,int *,int *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	100		
+错误	C2084	函数“void GetConsoleStringSize(const char *,int *,int *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	100		
+错误	C2084	函数“void PlaySound(char *,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	126		
+错误	C2084	函数“void PlaySound(char *,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	126		
+错误	C2084	函数“void PlaySound(char *,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	126		
+错误	C2084	函数“void PlaySound(char *,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	126		
+错误	C2084	函数“void PlaySound(int,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	127		
+错误	C2084	函数“void PlaySound(int,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	127		
+错误	C2084	函数“void PlaySound(int,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	127		
+错误	C2084	函数“void PlaySound(int,float)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	127		
+错误	C2084	函数“void UnpackRGB(int &,int &,int &,unsigned long)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	153		
+错误	C2084	函数“void UnpackRGB(int &,int &,int &,unsigned long)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	153		
+错误	C2084	函数“void UnpackRGB(int &,int &,int &,unsigned long)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	153		
+错误	C2084	函数“void UnpackRGB(int &,int &,int &,unsigned long)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	153		
+错误	C2084	函数“void VectorClear(float *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	139		
+错误	C2084	函数“void VectorClear(float *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	139		
+错误	C2084	函数“void VectorClear(float *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	139		
+错误	C2084	函数“void VectorClear(float *)”已有主体	cl_dll	D:\1\halflife-2_3-master\cl_dll\cl_util.h	139		
+错误	C1020	意外的 #endif	cl_dll	D:\1\halflife-2_3-master\cl_dll\vgui_TeamFortressViewport.cpp	600		
+错误	C1083	无法打开包括文件: “VoiceStatus.h”: No such file or directory	cl_dll	D:\1\halflife-2_3-master\cl_dll\NuklearScoreboard.cpp	14		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2143	语法错误: 缺少“;”(在“{”的前面)	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	64		
+错误	C2059	语法错误:“const”	cl_dll	D:\1\halflife-2_3-master\cl_dll\util_vector.h	118		

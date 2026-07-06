@@ -1,0 +1,158 @@
+// Scoreboard Configuration File
+// All user-visible text, colors, and layout settings are configured here.
+// No hardcoded strings or display values exist in the source code.
+//
+// Color format: "r g b a" (each 0-255)
+// Format strings: %d = number, %s = string
+
+// ============================================================
+// Title and subtitle
+// ============================================================
+title "SCOREBOARD"
+subtitle "Press TAB to close"
+
+// ============================================================
+// Column headers
+// ============================================================
+colName "Name"
+colTeam "Team"
+colClass "Class"
+colScore "Score"
+colDeaths "Deaths"
+colPing "Ping"
+colVoice "Voice"
+
+// ============================================================
+// Section titles
+// ============================================================
+spectators "Spectators"
+
+// ============================================================
+// Format strings (%d = number, %s = string)
+// ============================================================
+playerCountFormat "%d players"
+teamFormat "%s (%d)"
+indexFormat "%d."
+nameFormat "%s"
+scoreFormat "%d"
+deathFormat "%d"
+pingFormat "%d"
+
+// ============================================================
+// Voice status symbols (fallback when SPR icons fail to load)
+// ============================================================
+voiceBanned "[X]"
+voiceSpeakingBlink "<*>"
+voiceSpeaking "<o>"
+voiceNeverSpoke "[-]"
+voiceNotSpeaking "[.]"
+
+// ============================================================
+// Voice status SPR icons (preferred rendering)
+// Paths are relative to the game/mod directory.
+// Leave empty to use text symbols only.
+// ============================================================
+sprVoiceBanned "gfx/spr/640_voiceblocked.spr"
+sprVoiceSpeaking "gfx/spr/640_speaker3.spr"
+sprVoiceSpeakingBlink "gfx/spr/640_speaker4.spr"
+sprVoiceNeverSpoke "gfx/spr/640_speaker1.spr"
+sprVoiceNotSpeaking "gfx/spr/640_speaker2.spr"
+
+// ============================================================
+// Console commands (%d = player index)
+// ============================================================
+cmdHide "_hideScoreboard"
+cmdVoiceMute "voicemute %d"
+cmdVoiceUnmute "voiceunmute %d"
+
+// ============================================================
+// Dimensions and position
+// x = -1, y = -1 means center on screen
+// ============================================================
+width 600
+height 400
+x -1
+y -1
+
+// ============================================================
+// Background / border / row colors
+// ============================================================
+bgColor "0 0 0 220"
+borderColor "60 60 60 255"
+headerBgColor "30 30 30 200"
+headerTextColor "255 170 0 255"
+rowEvenColor "25 25 25 180"
+rowOddColor "20 20 20 180"
+selfHighlightColor "100 100 255 60"
+
+// ============================================================
+// Text colors
+// ============================================================
+playerCountColor "180 180 180 255"
+subtitleColor "100 100 100 255"
+indexColor "100 100 100 255"
+deathColor "200 200 200 255"
+selfPlayerColor "255 255 255 255"
+
+// ============================================================
+// Voice status colors
+// ============================================================
+voiceBannedColor "255 50 50 255"
+voiceSpeakingColor "255 170 0 255"
+voiceNeverSpokeColor "100 100 100 255"
+voiceNotSpeakingColor "150 150 150 255"
+
+// ============================================================
+// Ping colors and thresholds
+// ping <= pingGoodThreshold      -> pingGoodColor
+// ping <= pingMediumThreshold    -> pingMediumColor
+// otherwise                      -> pingBadColor
+// ============================================================
+pingGoodColor "100 200 100 255"
+pingMediumColor "255 200 100 255"
+pingBadColor "255 100 100 255"
+pingGoodThreshold 80
+pingMediumThreshold 150
+
+// ============================================================
+// Spectator row colors
+// ============================================================
+spectatorBgColor "40 40 40 200"
+spectatorTextColor "100 100 100 255"
+spectatorBorderColor "100 100 100 255"
+
+// ============================================================
+// Separator and kill highlight
+// ============================================================
+separatorColor "50 50 50 255"
+killHighlightColor "255 0 0 255"
+
+// ============================================================
+// Scrollbar colors (shown when player list overflows)
+// ============================================================
+scrollbarColor "40 40 40 200"
+scrollbarThumbColor "120 120 120 220"
+
+// ============================================================
+// Column widths
+// ============================================================
+colNameWidth 160
+colTeamWidth 70
+colClassWidth 80
+colScoreWidth 50
+colDeathsWidth 50
+colPingWidth 50
+colVoiceWidth 40
+
+// ============================================================
+// Row heights
+// ============================================================
+rowHeight 20
+teamRowHeight 24
+headerHeight 36
+
+// ============================================================
+// Border and padding
+// ============================================================
+borderWidth 2
+padding 6

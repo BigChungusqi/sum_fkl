@@ -1,0 +1,253 @@
+//========= Copyright © 1996-2002, Valve LLC, All rights reserved. ============
+//
+// Purpose: New Scoreboard using GoldSrc HUD Drawing API
+//
+//=============================================================================
+
+#ifndef NUKLEAR_SCOREBOARD_H
+#define NUKLEAR_SCOREBOARD_H
+
+#include "hud.h"
+#include "cl_util.h"
+#include "const.h"
+#include "entity_state.h"
+#include "cl_entity.h"
+
+// 队伍信息
+struct TeamInfo_t
+{
+	char name[MAX_TEAM_NAME];
+	int players;
+	int frags;
+	int deaths;
+	int ping;
+	int packetloss;
+	int teamnumber;
+	bool scores_overriden;
+	bool already_drawn;
+	bool ownteam;
+};
+
+// 玩家信息
+struct PlayerInfo_t
+{
+	char name[MAX_PLAYER_NAME_LENGTH];
+	int score;
+	int deaths;
+	int ping;
+	int packetloss;
+	int teamnumber;
+	int playerclass;
+	bool thisplayer;
+	bool connected;
+	bool alive;
+};
+
+// 最大玩家和队伍数
+#define MAX_DISPLAY_PLAYERS 32
+#define MAX_SCOREBOARD_TEAMS 5
+#define NUM_ROWS (MAX_PLAYERS + (MAX_SCOREBOARD_TEAMS * 2))
+
+// 队伍类型常量
+#define TEAM_NO         0
+#define TEAM_YES        1
+#define TEAM_SPECTATORS 2
+#define TEAM_BLANK      3
+
+// 队伍颜色定义
+struct TeamColor_t
+{
+	int r, g, b;
+};
+
+#define MAX_TEAM_COLORS 8
+extern TeamColor_t g_TeamColors[MAX_TEAM_COLORS];
+
+// 玩家排序条目
+struct SortedPlayer_t
+{
+	int playerIndex;    // 玩家索引
+	bool isTeam;        // 是否是队伍行
+	int teamIndex;      // 队伍索引(如果是队伍行)
+	int teamType;       // 队伍类型(普通/观察者/空白)
+};
+
+//=============================================================================
+// CNuklearScoreboard - 使用 GoldSrc 绘图 API 的新计分板
+//=============================================================================
+class CNuklearScoreboard
+{
+public:
+	CNuklearScoreboard();
+	~CNuklearScoreboard();
+
+
+
+	// 初始化和销毁
+	void Init();
+	void VidInit();
+	void Shutdown();
+
+	// 配置加载
+	void LoadConfig();
+	void SetDefaultConfig();
+
+	// 显示/隐藏
+	void Show(bool show);
+	bool IsVisible() const;
+
+	// 多人模式检测
+	bool IsMultiplayer() const;
+
+	// 更新数据
+	void Update();
+
+	// 绘制
+	void Draw();
+
+	// 输入处理
+	void MousePressed(int x, int y);
+	void MouseMoved(int x, int y);
+	void KeyPressed(int key);
+
+	// 击杀消息
+	void DeathMsg(int killer, int victim);
+
+	// 获取高亮行
+	int GetHighlightRow() const;
+
+private:
+	// 数据处理
+	void CollectPlayerData();
+	void SortPlayers();
+	void SortTeamPlayers(int teamIndex);
+	void RebuildTeams();
+
+	// 绘制函数
+	void DrawBackground();
+	void DrawHeader();
+	void DrawColumnHeaders();
+	void DrawPlayerList();
+	void DrawPlayerRow(int x, int y, int row, int height);
+	void DrawTeamRow(int x, int y, int row, int height, int teamIndex, int teamType);
+	void DrawPlayerInfo(int row);
+	void DrawHighlight(int row);
+
+	// 工具函数
+	int DrawString(int x, int y, const char* text, int r, int g, int b);
+	int DrawStringCenter(int x, int y, const char* text, int r, int g, int b);
+	void DrawRect(int x, int y, int w, int h, int r, int g, int b, int a);
+	void DrawBorder(int x, int y, int w, int h, int border, int r, int g, int b, int a);
+
+	// 坐标计算
+	void CalculateLayout();
+	int GetRowY(int row);
+	int GetRowHeight(int row);
+
+	// 状态
+	bool m_bVisible;
+	bool m_bNeedsUpdate;
+
+	// 布局
+	int m_iX, m_iY;
+	int m_iWidth, m_iHeight;
+	int m_iContentY;
+	int m_iScrollOffset;
+	int m_iMaxVisibleRows;
+
+	// 高亮
+	int m_iHighlightRow;
+	int m_iHighlightCol;
+
+	// 数据
+	TeamInfo_t m_TeamInfo[MAX_TEAMS];
+	int m_iNumTeams;
+	PlayerInfo_t m_PlayerInfo[MAX_PLAYERS + 1];
+
+	// 排序后的列表
+	SortedPlayer_t m_SortedPlayers[NUM_ROWS];
+	int m_iNumSorted;
+
+	// 已排序标记
+	bool m_bHasBeenSorted[MAX_PLAYERS + 1];
+
+	// 击杀追踪
+	int m_iLastKilledBy;
+	float m_fLastKillTime;
+	int m_iPlayerNum; // 当前玩家编号
+
+	// 字体大小
+	int m_iCharWidth;
+	int m_iCharHeight;
+	int m_iTitleCharHeight;
+
+	// 静音管理
+	bool m_bSquelchMode;
+	int m_iMutedPlayers[MAX_PLAYERS];
+
+	// 服务器名称
+	char m_szServerName[256];
+
+	// 计分板配置 - 尺寸和位置
+	int m_iCfgWidth;
+	int m_iCfgHeight;
+	int m_iCfgX;
+	int m_iCfgY;
+
+	// 计分板配置 - 标题文字
+	char m_szCfgTitle[128];
+	char m_szCfgSubtitle[128];
+
+	// 计分板配置 - 列标题
+	char m_szCfgColName[64];
+	char m_szCfgColTeam[64];
+	char m_szCfgColClass[64];
+	char m_szCfgColScore[64];
+	char m_szCfgColDeaths[64];
+	char m_szCfgColPing[64];
+	char m_szCfgColVoice[64];
+
+	// 计分板配置 - 观察者标题
+	char m_szCfgSpectators[64];
+
+	// 计分板配置 - 玩家数量格式
+	char m_szCfgPlayerCountFormat[64];
+
+	// 计分板配置 - 颜色 (r,g,b,a)
+	int m_iCfgBgColor[4];
+	int m_iCfgBorderColor[4];
+	int m_iCfgHeaderBgColor[4];
+	int m_iCfgHeaderTextColor[4];
+	int m_iCfgRowEvenColor[4];
+	int m_iCfgRowOddColor[4];
+	int m_iCfgSelfHighlightColor[4];
+
+	// 计分板配置 - 列宽
+	int m_iCfgColNameWidth;
+	int m_iCfgColTeamWidth;
+	int m_iCfgColClassWidth;
+	int m_iCfgColScoreWidth;
+	int m_iCfgColDeathsWidth;
+	int m_iCfgColPingWidth;
+	int m_iCfgColVoiceWidth;
+
+	// 计分板配置 - 行高
+	int m_iCfgRowHeight;
+	int m_iCfgTeamRowHeight;
+	int m_iCfgHeaderHeight;
+
+	// 计分板配置 - 边框和间距
+	int m_iCfgBorderWidth;
+	int m_iCfgPadding;
+
+	bool m_bConfigLoaded;
+};
+
+// 全局实例
+extern CNuklearScoreboard g_NuklearScoreboard;
+
+// 全局入口函数
+extern void DrawNuklearScoreboard();
+extern void InitNuklearScoreboard();
+
+#endif // NUKLEAR_SCOREBOARD_H
